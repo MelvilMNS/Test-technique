@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { ReservationForm } from './components/reservation-form/reservation-form';
 import { TableList } from './components/table-list/table-list';
 import { Table, TableService } from '../services/table.service';
@@ -14,6 +14,8 @@ export class App {
 
   tables: Table[] = [];
 
+  reservationId: number | null = null;
+
   constructor(private tableService: TableService) {}
 
   ngOnInit() {
@@ -21,6 +23,40 @@ export class App {
   }
 
   loadTables() {
-    this.tableService.getTables().subscribe(res => this.tables = res);
+    this.tableService.getTables().subscribe(res => {
+      this.tables = [...res];
+      console.log('Tables loaded:', this.tables);
+    });
   }
+
+  onReservationIdChanged(reservationId: number) {
+    this.reservationId = reservationId;
+  }
+
+  onReservationIdLiberation() {
+    if (this.reservationId !== null) {
+      this.tableService.liberation(this.reservationId).subscribe({
+        next: res => {
+          console.log("Table libérée:", res);
+          this.reservationId = null;
+          this.loadTables();
+        },
+        error: err => console.error("Erreur lors de la libération:", err)
+      });
+    }
+  }
+  
+  // ngOnDestroy() {
+  //   if (this.reservationId !== null) {
+  //     this.tableService.liberation(this.reservationId);
+  //   }
+  // }
+  // @HostListener('window:unload', ['$event'])
+  //   unloadHandler(event: Event) {
+  //   this.onReservationIdLiberation();
+  // }
+  // @HostListener('window:beforeunload', ['$event'])
+  //   beforeUnloadHandler(event: Event) {
+  //   this.onReservationIdLiberation();
+  // }
 }

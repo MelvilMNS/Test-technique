@@ -1,4 +1,12 @@
 <div class="container mt-4">
-  <app-reservation-form (tablesChanged)="loadTables()"></app-reservation-form>
+  <app-reservation-form
+    (tablesChanged)="loadTables()"
+    (reservationIdChanged)="onReservationIdChanged($event)"
+  ></app-reservation-form>
   <app-table-list [tables]="tables"></app-table-list>
+  @if (reservationId !== null) {
+    <button class="btn btn-danger w-100" (click)="onReservationIdLiberation()">
+      Quitter la page
+    </button>
+  }
 </div>

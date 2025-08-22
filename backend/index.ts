@@ -50,6 +50,6 @@ app.post("/liberation", (req, res) => {
 });
 
 app.listen(3000, () => {
-  initTables([2, 5, 4]);
+  initTables([2, 5, 4, 3, 2, 5, 4, 2]);
   console.log("Serveur démarré sur http://localhost:3000");
 });

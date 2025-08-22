@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ReservationForm {
   @Output() tablesChanged = new EventEmitter<boolean>();
+  @Output() reservationIdChanged = new EventEmitter<number>();
 
   size: number = 1;
   message: string = '';
@@ -30,6 +31,7 @@ export class ReservationForm {
   handleSuccess(res: any) {
     this.message = `Table ${res.table.id} réservée (${res.table.capacity} places)`;
     this.error = false;
+    this.reservationIdChanged.emit(res.table.id);
   }
 
   handleError(err: any) {

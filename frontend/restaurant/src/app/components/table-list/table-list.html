@@ -3,7 +3,7 @@
     <div class="col-md-3 mb-3">
       <div class="card text-white" [ngClass]="table.occupied ? 'bg-danger' : 'bg-success'">
         <div class="card-body">
-          <h5 class="card-title">Table {{ table.id }}</h5>
+          <h5 class="card-title">Table N°{{ table.id }}</h5>
           <p class="card-text">{{ table.capacity }} places</p>
           <p class="card-text">{{ table.occupied ? 'Occupée' : 'Libre' }}</p>
         </div>
