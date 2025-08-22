@@ -1,7 +1,13 @@
 <div class="row">
   @for (table of tables; track table.id) {
     <div class="col-md-3 mb-3">
-      <div class="card text-white" [ngClass]="table.occupied ? 'bg-danger' : 'bg-success'">
+      <div class="card text-white"
+        [ngClass]="{
+            'bg-warning': table.id === reservationId,
+            'bg-danger': table.occupied && table.id !== reservationId,
+            'bg-success': !table.occupied && table.id !== reservationId
+        }"
+      >
         <div class="card-body">
           <h5 class="card-title">Table N°{{ table.id }}</h5>
           <p class="card-text">{{ table.capacity }} places</p>
