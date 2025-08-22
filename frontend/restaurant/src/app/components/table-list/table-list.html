@@ -11,7 +11,16 @@
         <div class="card-body">
           <h5 class="card-title">Table N°{{ table.id }}</h5>
           <p class="card-text">{{ table.capacity }} places</p>
-          <p class="card-text">{{ table.occupied ? 'Occupée' : 'Libre' }}</p>
+          <p class="card-text">
+          @if (table.id === reservationId) {
+            Vous
+          } @else {
+            @if (table.occupied) {
+              Occupée
+            } @else {
+              Libre
+            }
+          }
         </div>
       </div>
     </div>
