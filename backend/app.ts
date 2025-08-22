@@ -1,20 +1,20 @@
 const express = require('express')
 const cors = require('cors');
-const app = express()
+export const app = express()
 const port = 3000
 
 app.use(express.json());
 app.use(cors());
 
-type Table = {
+export type Table = {
   id: number;
   capacity: number;
   occupied: boolean;
 };
 
-let tables: Table[] = [];
+export let tables: Table[] = [];
 
-function initTables(capacities: number[]) {
+export function initTables(capacities: number[]) {
   for (let tableIndex = 0; tableIndex < capacities.length; tableIndex++) {
     const capacity = capacities[tableIndex];
     tables.push({ id: tableIndex, capacity: capacity, occupied: false });
@@ -47,9 +47,4 @@ app.post("/liberation", (req, res) => {
   const table = tables.find(table => table.id === id);
   if (table) table.occupied = false;
   res.json({ success: true });
-});
-
-app.listen(3000, () => {
-  initTables([2, 5, 4, 3, 2, 5, 4, 2]);
-  console.log("Serveur démarré sur http://localhost:3000");
 });
