@@ -1,10 +1,14 @@
 <div class="container mt-4">
-  <app-reservation-form
-    (tablesChanged)="loadTables()"
-    (reservationIdChanged)="onReservationIdChanged($event)"
-  ></app-reservation-form>
-  <app-table-list [tables]="tables"></app-table-list>
+  <!-- Cacher l'input si une réservation a eu lieu -->
+  @if (reservationId === null) {
+    <app-reservation-form
+      (tablesChanged)="loadTables()"
+      (reservationIdChanged)="onReservationIdChanged($event)"
+    ></app-reservation-form>
+  }
+  <!-- Afficher la répartition des tables si une réservation a eu lieu -->
   @if (reservationId !== null) {
+    <app-table-list [tables]="tables"></app-table-list>
     <button class="btn btn-danger w-100" (click)="onReservationIdLiberation()">
       Quitter la page
     </button>
