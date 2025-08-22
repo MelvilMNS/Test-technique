@@ -8,6 +8,9 @@
   }
   <!-- Afficher la répartition des tables si une réservation a eu lieu -->
   @if (reservationId !== null) {
+    <button class="btn btn-success w-100" (click)="loadTables()">
+      Rafraichir
+    </button>
     <app-table-list [tables]="tables" [reservationId]="reservationId"></app-table-list>
     <button class="btn btn-danger w-100" (click)="onReservationIdLiberation()">
       Quitter la page
